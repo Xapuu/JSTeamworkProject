@@ -94,32 +94,6 @@ function startApp() {
         }
     }
 
-    // user/login
-    function loginUser() {
-        const kinveyLoginUrl = "https://mock.backend.com/user/kid_rk/login";
-        const kinveyAuthHeaders = {
-            'Authorization': "Basic " + btoa("kid_rk:736804a668"),
-        };
-        let userData = {
-            username: $('#formLogin input[name=username]').val(),
-            password: $('#formLogin input[name=passwd]').val()
-        };
-
-        $.ajax({
-            method: "POST",
-            url: kinveyLoginUrl,
-            headers: kinveyAuthHeaders,
-            data: userData,
-            success: loginSuccess
-        });
-
-        function loginSuccess(userInfo) {
-            saveAuthInSession(userInfo);
-            showHideMenuLinks();
-            showHomeView();
-        }
-    }
-
     function saveAuthInSession(userInfo) {
         let userAuth = userInfo._kmd.authtoken;
         sessionStorage.setItem('authToken', userAuth);
@@ -288,15 +262,18 @@ function startApp() {
             method: "GET",
             url: kinveyBookUrl,
             headers: kinveyAuthHeaders,
-            success: loadAdvertForEditSuccess
+            success: loadAdvertForEditSuccess,
+            error: handleAjaxError
         });
 
         function loadAdvertForEditSuccess(advert) {
             $('#formEditAd input[name=id]').val(advert._id);
             $('#formEditAd input[name=title]').val(advert.title);
             $('#formEditAd input[name=publisher]').val(advert.publisher);
+            $('#formEditAd textarea[name=description]').val(advert.description);
             $('#formEditAd input[name=datePublished]').val(advert.datePublished);
             $('#formEditAd input[name=price]').val(advert.price);
+            $('#formEditAd input[name=image]').val(advert.image);
             showView('viewEditAd');
         }
     }
