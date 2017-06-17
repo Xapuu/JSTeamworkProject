@@ -154,6 +154,7 @@
                                 creator: creator
                             },
                             title: data.title,
+                            description: data.description,
                             publisher: data.publisher,
                             datePublished: data.datePublished,
                             price: data.price
