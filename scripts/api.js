@@ -14,7 +14,6 @@
             price: 100,
             image: "./static/fuze-f1.png"
         }
-
     ];
 
     let users = [
@@ -133,7 +132,9 @@
         }
     });
 
+
     // Create advert
+
     $.mockjax(function (requestSettings) {
         if (requestSettings.url === "https://mock.api.com/appdata/kid_rk/adverts" &&
             requestSettings.method === "POST") {
